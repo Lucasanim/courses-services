@@ -5,9 +5,13 @@ import com.msvc.users.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,13 +32,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return this.getValidationErrorResponse(bindingResult);
+        }
         User createdUser = this.userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("userId") Long userId) {
+    public ResponseEntity<?> updateUser(@Valid @RequestBody User user, BindingResult bindingResult, @PathVariable("userId") Long userId) {
+        if (bindingResult.hasErrors()) {
+            return this.getValidationErrorResponse(bindingResult);
+        }
         Optional<User> optionalUser = this.userService.findById(userId);
         if (optionalUser.isPresent()) {
             User queriedUser = optionalUser.get();
@@ -55,6 +65,12 @@ public class UserController {
            return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<Map<String, String>> getValidationErrorResponse(BindingResult bindingResult) {
+        Map<String, String> errors = new HashMap<>();
+        bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+        return ResponseEntity.badRequest().body(errors);
     }
 
 }
