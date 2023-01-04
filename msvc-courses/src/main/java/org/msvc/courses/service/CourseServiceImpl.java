@@ -66,6 +66,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional
+    public void deleteCourseUserById(Long userId) {
+        this.courseRepository.deleteCourseUserById(userId);
+    }
+
+    @Override
+    @Transactional
     public Optional<User> assignUserToCourse(User user, Long courseId) {
         Optional<Course> optionalCourse = this.courseRepository.findById(courseId);
         if (optionalCourse.isPresent()) {

@@ -1,5 +1,6 @@
 package com.msvc.users.services;
 
+import com.msvc.users.client.CourseClientRest;
 import com.msvc.users.models.entities.User;
 import com.msvc.users.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    private final CourseClientRest courseClient;
+
+    public UserServiceImpl(UserRepository userRepository, CourseClientRest courseClient) {
         this.userRepository = userRepository;
+        this.courseClient = courseClient;
     }
 
     @Override
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Long id) {
         this.userRepository.deleteById(id);
+        this.courseClient.deleteCourseUser(id);
     }
 
 }

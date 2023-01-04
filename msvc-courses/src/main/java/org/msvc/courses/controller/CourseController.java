@@ -94,8 +94,8 @@ public class CourseController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/delete-user/{courseId}")
-    public ResponseEntity<?> deleteUserOfCourse(@RequestBody User user, @PathVariable("courseId") Long courseId) {
+    @DeleteMapping("/deallocate-user/{courseId}")
+    public ResponseEntity<?> deallocateUserOfCourse(@RequestBody User user, @PathVariable("courseId") Long courseId) {
         Optional<User> optionalUser;
         try {
             optionalUser = this.courseService.removeUserFromCourse(user, courseId);
@@ -106,6 +106,12 @@ public class CourseController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete-user/{userId}")
+    public ResponseEntity<?> deleteCourseUser(@PathVariable("userId") Long userId) {
+        this.courseService.deleteCourseUserById(userId);
+        return ResponseEntity.ok().build();
     }
 
     private ResponseEntity<Map<String, String>> getValidationErrorResponse(BindingResult bindingResult) {
