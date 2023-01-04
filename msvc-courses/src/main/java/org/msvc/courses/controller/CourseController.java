@@ -1,5 +1,7 @@
 package org.msvc.courses.controller;
 
+import feign.FeignException;
+import org.msvc.courses.models.User;
 import org.msvc.courses.models.entity.Course;
 import org.msvc.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,48 @@ public class CourseController {
         Optional<Course> optionalCourse = this.courseService.getById(courseId);
         if (optionalCourse.isPresent()) {
             this.courseService.delete(courseId);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/assign-user/{courseId}")
+    public ResponseEntity<?> assignUserToCourse(@RequestBody User user, @PathVariable("courseId") Long courseId) {
+        Optional<User> optionalUser;
+        try {
+            optionalUser = this.courseService.assignUserToCourse(user, courseId);
+        } catch (FeignException.FeignClientException e) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/create-user/{courseId}")
+    public ResponseEntity<?> createUserOnCourse(@RequestBody User user, @PathVariable("courseId") Long courseId) {
+        Optional<User> optionalUser;
+        try {
+            optionalUser = this.courseService.createUser(user, courseId);
+        } catch (FeignException.FeignClientException e) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete-user/{courseId}")
+    public ResponseEntity<?> deleteUserOfCourse(@RequestBody User user, @PathVariable("courseId") Long courseId) {
+        Optional<User> optionalUser;
+        try {
+            optionalUser = this.courseService.removeUserFromCourse(user, courseId);
+        } catch (FeignException.FeignClientException e) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (optionalUser.isPresent()) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

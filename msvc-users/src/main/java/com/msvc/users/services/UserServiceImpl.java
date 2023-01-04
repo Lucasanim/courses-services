@@ -45,19 +45,4 @@ public class UserServiceImpl implements UserService {
         this.userRepository.deleteById(id);
     }
 
-
-    @Override
-    public Optional<User> assignUserToCourse(User user, Long courseId) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> createUser(User user, Long courseId) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<User> removeUserFromCourse(User user, Long courseId) {
-        return Optional.empty();
-    }
 }

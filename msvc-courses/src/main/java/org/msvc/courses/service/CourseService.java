@@ -1,5 +1,6 @@
 package org.msvc.courses.service;
 
+import org.msvc.courses.models.User;
 import org.msvc.courses.models.entity.Course;
 
 import java.util.List;
@@ -10,4 +11,8 @@ public interface CourseService {
     Optional<Course> getById(Long id);
     Course save(Course course);
     void delete(Long id);
+
+    Optional<User> assignUserToCourse(User user, Long courseId);
+    Optional<User> createUser(User user, Long courseId);
+    Optional<User> removeUserFromCourse(User user, Long courseId);
 }
