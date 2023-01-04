@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersByIds(Iterable<Long> ids) {
+        return (List<User>) this.userRepository.findAllById(ids);
+    }
+
+    @Override
     @Transactional
     public User save(User user) {
         return this.userRepository.save(user);
