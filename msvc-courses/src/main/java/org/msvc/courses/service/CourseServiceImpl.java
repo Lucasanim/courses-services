@@ -1,6 +1,7 @@
 package org.msvc.courses.service;
 
-import org.msvc.courses.entity.Course;
+import org.msvc.courses.clients.UserClientRest;
+import org.msvc.courses.models.entity.Course;
 import org.msvc.courses.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private UserClientRest userClient;
 
     @Override
     @Transactional(readOnly = true)

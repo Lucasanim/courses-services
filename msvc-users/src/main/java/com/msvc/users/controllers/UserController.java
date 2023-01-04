@@ -9,10 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class UserController {
@@ -36,6 +33,9 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return this.getValidationErrorResponse(bindingResult);
         }
+        if (this.userService.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("error", "The email provided is already taken"));
+        }
         User createdUser = this.userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
@@ -48,6 +48,9 @@ public class UserController {
         Optional<User> optionalUser = this.userService.findById(userId);
         if (optionalUser.isPresent()) {
             User queriedUser = optionalUser.get();
+            if (!queriedUser.getEmail().equalsIgnoreCase(user.getEmail()) && this.userService.findByEmail(user.getEmail()).isPresent()) {
+                return ResponseEntity.badRequest().body(Collections.singletonMap("error", "The email provided is already taken"));
+            }
             queriedUser.setEmail(user.getEmail());
             queriedUser.setName(user.getName());
             queriedUser.setPassword(user.getPassword());

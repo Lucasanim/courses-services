@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
+    @Override
     @Transactional
     public User save(User user) {
         return this.userRepository.save(user);
@@ -38,5 +43,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Long id) {
         this.userRepository.deleteById(id);
+    }
+
+
+    @Override
+    public Optional<User> assignUserToCourse(User user, Long courseId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> createUser(User user, Long courseId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> removeUserFromCourse(User user, Long courseId) {
+        return Optional.empty();
     }
 }

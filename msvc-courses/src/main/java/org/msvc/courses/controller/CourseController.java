@@ -1,6 +1,6 @@
 package org.msvc.courses.controller;
 
-import org.msvc.courses.entity.Course;
+import org.msvc.courses.models.entity.Course;
 import org.msvc.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +26,13 @@ public class CourseController {
     }
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<Course> getCourseById(@Valid @PathVariable("courseId") Long courseId) {
+    public ResponseEntity<Course> getCourseById(@PathVariable("courseId") Long courseId) {
         Optional<Course> optionalCourse = this.courseService.getById(courseId);
         return optionalCourse.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<?> createCourse(@RequestBody Course course, BindingResult bindingResult) {
+    public ResponseEntity<?> createCourse(@Valid @RequestBody Course course, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return this.getValidationErrorResponse(bindingResult);
         }

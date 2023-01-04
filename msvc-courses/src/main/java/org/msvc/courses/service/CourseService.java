@@ -1,6 +1,6 @@
 package org.msvc.courses.service;
 
-import org.msvc.courses.entity.Course;
+import org.msvc.courses.models.entity.Course;
 
 import java.util.List;
 import java.util.Optional;
