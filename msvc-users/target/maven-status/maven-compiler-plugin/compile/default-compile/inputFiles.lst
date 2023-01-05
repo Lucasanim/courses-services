@@ -1,0 +1,7 @@
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/services/UserServiceImpl.java
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/repositories/UserRepository.java
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/controllers/UserController.java
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/client/CourseClientRest.java
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/MsvcUsersApplication.java
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/services/UserService.java
+/home/lvu/Desktop/spring/courses-microservices/courses-microservices/msvc-users/src/main/java/com/msvc/users/models/entities/User.java
