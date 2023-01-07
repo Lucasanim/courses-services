@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "msvc-courses", url = "172.17.0.1:8002")
+@FeignClient(name = "msvc-courses", url = "msvc-courses:8002")
 public interface CourseClientRest {
 
     @DeleteMapping("/delete-user/{userId}")
