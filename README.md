@@ -20,3 +20,9 @@ docker network create spring-msvc
 ### Utils containers
 1. docker run -it --rm --network spring-msvc mysql:8 bash // access Mysql from console
 2. docker run -it --rm --network spring-msvc postgres:14-alpine bash // access Postgres from console
+
+### Start all services with docker-compose
+docker compose up -d
+
+### Stop all services with docker-compose
+docker-compose down
