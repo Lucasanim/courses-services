@@ -1,24 +1,32 @@
+ARG MSVC_NAME=msvc-users
+
 FROM openjdk:17-jdk-alpine as builder
 
-WORKDIR /app/msvc-users
+ARG MSVC_NAME
+
+WORKDIR /app/$MSVC_NAME
 
 COPY ./pom.xml /app
-COPY ./msvc-users/.mvn ./.mvn
-COPY ./msvc-users/mvnw .
-COPY ./msvc-users/pom.xml .
+COPY ./$MSVC_NAME/.mvn ./.mvn
+COPY ./$MSVC_NAME/mvnw .
+COPY ./$MSVC_NAME/pom.xml .
 
 RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target/
 
-COPY ./msvc-users/src ./src
+COPY ./$MSVC_NAME/src ./src
 
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17-jdk-alpine
 
+ARG MSVC_NAME
+
 WORKDIR /app
 
-COPY --from=builder /app/msvc-users/target/msvc-users-0.0.1-SNAPSHOT.jar .
+COPY --from=builder /app/$MSVC_NAME/target/msvc-users-0.0.1-SNAPSHOT.jar .
 
-EXPOSE 8001
+ENV PORT 8001
+
+EXPOSE $PORT
 
 ENTRYPOINT ["java", "-jar", "msvc-users-0.0.1-SNAPSHOT.jar"]
