@@ -30,11 +30,19 @@ docker-compose down
 ## Kubernetes Configuration
 
 ### Create Deployment
-1. kubectl create deployment mysql8 --image=mysql:8 --port=3306 --dry-run=client
-2. kubectl create deployment msvc-users --image=lucasvaz12/users:latest --port=8001
+1. kubectl apply -f ./deployment-mysql.yaml
+2. kubectl apply -f ./deployment-users.yaml
+3. kubectl apply -f ./deployment-postgres.yaml
+4. kubectl apply -f ./deployment-courses.yaml
 
-### Apply Declarative configuration to Deployment
+### Apply Declarative Configuration/Create Deployment
 1. kubectl apply -f ./deployment-mysql.yaml 
 
 ### Create Internal Services
-1. kubectl expose deployment mysql8 --port=3306 --type=ClusterIP
+1. kubectl apply -f ./svc-postgres.yaml
+2. kubectl apply -f ./svc-mysql.yaml
+3. kubectl apply -f ./svc-users.yaml
+4. kubectl apply -f ./svc-courses.yaml
+
+### Generate Public Cluster IP
+1. http://192.168.49.2:31689
