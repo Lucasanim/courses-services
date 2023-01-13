@@ -26,3 +26,15 @@ docker compose up -d
 
 ### Stop all services with docker-compose
 docker-compose down
+
+## Kubernetes Configuration
+
+### Create Deployment
+1. kubectl create deployment mysql8 --image=mysql:8 --port=3306 --dry-run=client
+2. kubectl create deployment msvc-users --image=lucasvaz12/users:latest --port=8001
+
+### Apply Declarative configuration to Deployment
+1. kubectl apply -f ./deployment-mysql.yaml 
+
+### Create Internal Services
+1. kubectl expose deployment mysql8 --port=3306 --type=ClusterIP
