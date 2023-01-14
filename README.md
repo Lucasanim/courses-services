@@ -29,14 +29,19 @@ docker-compose down
 
 ## Kubernetes Configuration
 
+### Create Persistent Volumes
+1. kubectl apply -f ./mysql-pv.yaml
+2. kubectl apply -f ./postgres-pv.yaml
+
+### Create Persistent Volume Claims
+1. kubectl apply -f ./mysql-pvc.yaml
+2. kubectl apply -f ./postgres-pvc.yaml
+
 ### Create Deployment
 1. kubectl apply -f ./deployment-mysql.yaml
 2. kubectl apply -f ./deployment-users.yaml
 3. kubectl apply -f ./deployment-postgres.yaml
 4. kubectl apply -f ./deployment-courses.yaml
-
-### Apply Declarative Configuration/Create Deployment
-1. kubectl apply -f ./deployment-mysql.yaml 
 
 ### Create Internal Services
 1. kubectl apply -f ./svc-postgres.yaml
@@ -45,4 +50,5 @@ docker-compose down
 4. kubectl apply -f ./svc-courses.yaml
 
 ### Generate Public Cluster IP
-1. http://192.168.49.2:31689
+1. minikube service msvc-users --url
+2. minikube service msvc-courses --url
