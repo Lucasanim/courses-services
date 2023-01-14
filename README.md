@@ -29,6 +29,9 @@ docker-compose down
 
 ## Kubernetes Configuration
 
+### Create Config Map
+1. kubectl apply -f ./configmap.yaml
+
 ### Create Persistent Volumes
 1. kubectl apply -f ./mysql-pv.yaml
 2. kubectl apply -f ./postgres-pv.yaml
