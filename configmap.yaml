@@ -17,7 +17,7 @@ kind: ConfigMap
 metadata:
   name: msvc-courses
 data:
-  port: "8001"
+  port: "8002"
   db_host: "postgres14:5432"
   database: msvc_courses
   username: postgres
