@@ -29,3 +29,13 @@ data:
   db_host: "postgres14:5432"
   database: msvc_courses
   users_url: "msvc-users:8001"
+  application.yaml: |-
+    spring:
+      config:
+        activate:
+          on-profile: dev
+    ---
+    spring:
+      config:
+        activate:
+          on-profile: prod

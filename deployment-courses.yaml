@@ -48,3 +48,19 @@ spec:
                 configMapKeyRef:
                   name: msvc-courses
                   key: users_url
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8002
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 20
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8002
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 20
+            timeoutSeconds: 10
