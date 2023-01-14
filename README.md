@@ -29,6 +29,9 @@ docker-compose down
 
 ## Kubernetes Configuration
 
+### Create Secrets
+1. kubectl apply -f ./secret.yaml
+
 ### Create Config Map
 1. kubectl apply -f ./configmap.yaml
 
