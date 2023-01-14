@@ -13,24 +13,24 @@ spec:
         app: mysql8
     spec:
       containers:
-      - image: mysql:8
-        name: mysql
-        ports:
-        - containerPort: 3306
-        env:
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              configMapKeyRef:
-                name: msvc-users
-                key: password
-          - name: MYSQL_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: msvc-users
-                key: database
-        volumeMounts:
-          - name: data-mysql
-            mountPath: /var/lib/mysql
+        - name: mysql8
+          image: mysql:8
+          ports:
+          - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: msvc-users
+                  key: password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: msvc-users
+                  key: database
+          volumeMounts:
+            - name: data-mysql
+              mountPath: /var/lib/mysql
       volumes:
         - name: data-mysql
           persistentVolumeClaim:

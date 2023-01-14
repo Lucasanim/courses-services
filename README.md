@@ -29,6 +29,9 @@ docker-compose down
 
 ## Kubernetes Configuration
 
+### Create Kubernate Role
+1. kubectl create clusterrolebinding admin --clusterrole=cluster-admin --serviceaccount=default:default
+
 ### Create Secrets
 1. kubectl apply -f ./secret.yaml
 
