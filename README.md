@@ -51,6 +51,7 @@ docker-compose down
 2. kubectl apply -f ./deployment-users.yaml
 3. kubectl apply -f ./deployment-postgres.yaml
 4. kubectl apply -f ./deployment-courses.yaml
+5. kubectl apply -f ./gateway.yaml
 
 ### Create Internal Services
 1. kubectl apply -f ./svc-postgres.yaml
@@ -61,3 +62,4 @@ docker-compose down
 ### Generate Public Cluster IP
 1. minikube service msvc-users --url
 2. minikube service msvc-courses --url
+3. minikube service msvc-gateway --url
