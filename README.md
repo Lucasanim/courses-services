@@ -7,6 +7,7 @@
 ### Build images
 1. docker build -t courses . -f ./msvc-courses/Dockerfile
 2. docker build -t users . -f ./msvc-users/Dockerfile 
+3. docker build -t auth . -f ./msvc-auth/Dockerfile
 
 ### Create docker network
 docker network create spring-msvc
@@ -52,6 +53,7 @@ docker-compose down
 3. kubectl apply -f ./deployment-postgres.yaml
 4. kubectl apply -f ./deployment-courses.yaml
 5. kubectl apply -f ./gateway.yaml
+6. kubectl apply -f ./auth.yaml
 
 ### Create Internal Services
 1. kubectl apply -f ./svc-postgres.yaml
@@ -63,3 +65,4 @@ docker-compose down
 1. minikube service msvc-users --url
 2. minikube service msvc-courses --url
 3. minikube service msvc-gateway --url
+4. minikube service msvc-auth --url

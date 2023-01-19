@@ -78,6 +78,11 @@ public class UserController {
         return ResponseEntity.ok(this.userService.getUsersByIds(usersIds));
     }
 
+    @GetMapping("/authorized")
+    public Map<String, Object> authorize(@RequestParam("code") String code) {
+        return Collections.singletonMap("code", code);
+    }
+
     private ResponseEntity<Map<String, String>> getValidationErrorResponse(BindingResult bindingResult) {
         Map<String, String> errors = new HashMap<>();
         bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
