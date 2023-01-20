@@ -5,6 +5,7 @@ import com.msvc.users.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ import java.util.*;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -39,6 +43,7 @@ public class UserController {
         if (this.userService.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body(Collections.singletonMap("error", "The email provided is already taken"));
         }
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         User createdUser = this.userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
@@ -56,8 +61,7 @@ public class UserController {
             }
             queriedUser.setEmail(user.getEmail());
             queriedUser.setName(user.getName());
-            queriedUser.setPassword(user.getPassword());
-
+            queriedUser.setPassword(this.passwordEncoder.encode(user.getPassword()));
             return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.save(queriedUser));
         }
         return ResponseEntity.notFound().build();
@@ -79,8 +83,17 @@ public class UserController {
     }
 
     @GetMapping("/authorized")
-    public Map<String, Object> authorize(@RequestParam("code") String code) {
+    public Map<String, Object> authorized(@RequestParam(name = "code") String code) {
         return Collections.singletonMap("code", code);
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> loginByEmail(@RequestParam("email") String email) {
+        Optional<User> optionalUser = this.userService.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok(optionalUser.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     private ResponseEntity<Map<String, String>> getValidationErrorResponse(BindingResult bindingResult) {

@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "dc1af038-074b-46d5-9af0-8e23ef57d0c7",
+		"name": "msvc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12368775"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "mypass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.49.2:31615/login",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"port": "31615",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "users-client",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "NbtsC9qV9_pNV-Mf_KayLOT61FXkrrJSqy1zq9VeJeWyuGedjBfaDT75pHrEItXLmJ5_Y-pJK96EX20LElbZzPskkUpRi4dPUhMgsJ03IpcIeGEttV0kd_GLBKQfXg-e",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://192.168.49.2:31689/authorized",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.49.2:31615/oauth2/token",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"port": "31615",
+					"path": [
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login with scopes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "users-client",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.49.2:31615/oauth2/authorize?response_type=code&client_id=users-client&scope=read write&redirect_uri=http://192.168.49.2:31689/authorized",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"49",
+						"2"
+					],
+					"port": "31615",
+					"path": [
+						"oauth2",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "client_id",
+							"value": "users-client"
+						},
+						{
+							"key": "scope",
+							"value": "read write"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://192.168.49.2:31689/authorized"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

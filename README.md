@@ -66,3 +66,14 @@ docker-compose down
 2. minikube service msvc-courses --url
 3. minikube service msvc-gateway --url
 4. minikube service msvc-auth --url
+
+## Login URLs
+1. Get Code:
+   1. AUTH-URL/oauth2/authorize?response_type=code&client_id=users-client&scope=read write&redirect_uri=USERS-URL/authorized
+   2. AUTH-URL/login  -> with username and password in the body as x-www-form-urlencoded 
+2. Get Token From Code:
+   AUTH-URL/oauth2/token
+Body: x-www-form-urlencoded
+- code
+- grant_type: authorization_code
+- redirect_uri: USERS-URL/authorized

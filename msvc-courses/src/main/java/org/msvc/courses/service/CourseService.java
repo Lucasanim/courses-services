@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface CourseService {
     List<Course> findAll();
     Optional<Course> getById(Long id);
-    Optional<Course> getByIdWithUsers(Long id);
+    Optional<Course> getByIdWithUsers(Long id, String token);
     Course save(Course course);
     void delete(Long id);
     void deleteCourseUserById(Long userId);

@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -13,11 +14,17 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/authorized").permitAll()
+                .antMatchers("/authorized", "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/").permitAll()
                 .antMatchers(HttpMethod.GET, "/", "/{userId}").hasAnyAuthority("SCOPE_read", "SCOPE_write")
-                .antMatchers(HttpMethod.POST, "/").hasAuthority("SCOPE_write")
+//                .antMatchers(HttpMethod.POST, "/**").hasAuthority("SCOPE_write")
                 .antMatchers(HttpMethod.PUT, "/{userId}").hasAuthority("SCOPE_write")
                 .antMatchers(HttpMethod.DELETE, "/{userId}").hasAuthority("SCOPE_write")
                 .anyRequest().authenticated()

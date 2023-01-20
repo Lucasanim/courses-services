@@ -36,14 +36,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Course> getByIdWithUsers(Long id) {
+    public Optional<Course> getByIdWithUsers(Long id, String token) {
         Optional<Course> optionalCourse = this.courseRepository.findById(id);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
             if (!course.getCourseUsers().isEmpty()) {
                 List<Long> userIds = course.getCourseUsers().stream().map(CourseUser::getUserId).toList();
                 if (!userIds.isEmpty()) {
-                    List<User> users = userClient.getUsersByIds(userIds);
+                    List<User> users = userClient.getUsersByIds(userIds, token);
                     course.getUsers().addAll(users);
                 }
             }

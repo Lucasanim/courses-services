@@ -16,6 +16,6 @@ public interface UserClientRest {
     public User createUser(@RequestBody User user);
 
     @GetMapping("/users-by-id")
-    public List<User> getUsersByIds(@RequestParam Iterable<Long> usersIds);
+    public List<User> getUsersByIds(@RequestParam Iterable<Long> usersIds, @RequestHeader(value = "Authorization") String token);
 
 }

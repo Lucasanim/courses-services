@@ -28,8 +28,8 @@ public class CourseController {
     }
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<Course> getCourseById(@PathVariable("courseId") Long courseId) {
-        Optional<Course> optionalCourse = this.courseService.getByIdWithUsers(courseId);
+    public ResponseEntity<Course> getCourseById(@PathVariable("courseId") Long courseId, @RequestHeader(value = "Authorization") String token) {
+        Optional<Course> optionalCourse = this.courseService.getByIdWithUsers(courseId, token);
         return optionalCourse.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
